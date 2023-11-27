@@ -1,4 +1,23 @@
-import React from "react";
+import React, {
+  ComponentProps,
+  ComponentPropsWithoutRef,
+  PropsWithChildren,
+  ReactNode,
+} from "react";
+
+function RadioInput({
+  children,
+  name,
+  value,
+  ...props
+}: PropsWithChildren<ComponentProps<"input">>) {
+  return (
+    <label>
+      <input type="radio" name={name} value={value} {...props} />
+      {children}
+    </label>
+  );
+}
 
 function Card() {
   return (
@@ -17,19 +36,13 @@ function Card() {
       <div>
         <form>
           <fieldset>
-            <label>
-              <input type="radio" name="stage" value="stage1" />
-              до 1 см
-            </label>
-            <label>
-              <input type="radio" name="stage" value="stage2" />
-              1-3 см
-            </label>
-            <label>
-              <input type="radio" name="stage" value="stage3" />
-              больше 3 см
-            </label>
+            <RadioInput name="stage" value="stage1" />
+            <RadioInput name="stage" value="stage2" />
+            <RadioInput name="stage" value="stage3" />
           </fieldset>
+          <button className="rounded-full bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700">
+            Следующий шаг
+          </button>
         </form>
       </div>
     </div>
