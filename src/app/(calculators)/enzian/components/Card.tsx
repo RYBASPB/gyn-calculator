@@ -1,9 +1,11 @@
+"use client"
+
 import React, {
   ComponentProps,
-  ComponentPropsWithoutRef,
-  PropsWithChildren,
-  ReactNode,
+  FormEvent,
+  PropsWithChildren
 } from "react";
+import Image, { ImageProps } from "next/image";
 
 function RadioInput({
   children,
@@ -19,30 +21,48 @@ function RadioInput({
   );
 }
 
-function Card() {
+export type RadioInput = {
+  name: string,
+  description: string
+}
+
+export type ENZIANCard = {
+  letter: string,
+  description: string,
+  image: ImageProps["src"],
+  legend: string,
+  inputs: RadioInput[]
+}
+
+function Card({ description, image, inputs, legend, letter }: ENZIANCard) {
+
+
   return (
     <div>
       <div>
-        <div>P</div>
-        <div>Брюшина - Peritoneum</div>
+        <div>{letter}</div>
+        <div>{description}</div>
       </div>
 
       <div>
         <div>
-          <img alt="Peritoneum" />
+          <Image src={image} alt="Peritoneum" />
         </div>
       </div>
 
       <div>
         <form>
           <fieldset>
-            <RadioInput name="stage" value="stage1" />
-            <RadioInput name="stage" value="stage2" />
-            <RadioInput name="stage" value="stage3" />
+            <legend>{legend}</legend>
+            {inputs && inputs.map(({name, description}, index) => {
+              const key = name + index.toString();
+              return (
+                <RadioInput name={name} value={key} key={key}>
+                  {description}
+                </RadioInput>
+              )
+            })}
           </fieldset>
-          <button className="rounded-full bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700">
-            Следующий шаг
-          </button>
         </form>
       </div>
     </div>
