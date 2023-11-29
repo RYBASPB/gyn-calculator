@@ -1,10 +1,6 @@
-"use client"
+"use client";
 
-import React, {
-  ComponentProps,
-  FormEvent,
-  PropsWithChildren
-} from "react";
+import React, { ComponentProps, FormEvent, PropsWithChildren } from "react";
 import Image, { ImageProps } from "next/image";
 
 function RadioInput({
@@ -22,21 +18,21 @@ function RadioInput({
 }
 
 export type RadioInput = {
-  name: string,
-  description: string
-}
+  [legend: string]:
+    {
+      name: string;
+      description: string;
+    }[]
+};
 
 export type ENZIANCard = {
-  letter: string,
-  description: string,
-  image: ImageProps["src"],
-  legend: string,
-  inputs: RadioInput[]
-}
+  letter: string;
+  description: string;
+  image: ImageProps["src"];
+  inputs: RadioInput;
+};
 
-function Card({ description, image, inputs, legend, letter }: ENZIANCard) {
-
-
+function Card({ description, image, inputs, letter }: ENZIANCard) {
   return (
     <div>
       <div>
@@ -52,17 +48,24 @@ function Card({ description, image, inputs, legend, letter }: ENZIANCard) {
 
       <div>
         <form>
-          <fieldset>
-            <legend>{legend}</legend>
-            {inputs && inputs.map(({name, description}, index) => {
-              const key = name + index.toString();
+            {Object.entries(inputs).map(([legend, radioInputs], index) => {
+              const legendKey = legend.replaceAll(" ", "") + index.toString();
               return (
-                <RadioInput name={name} value={key} key={key}>
-                  {description}
-                </RadioInput>
-              )
+                <fieldset key={legendKey}>
+                  <legend>{legend}</legend>
+                  {radioInputs.map(({ name, description }, index) => {
+                    const key = name + index.toString();
+                    return (
+                      <>
+                        <RadioInput name={name} value={key} key={key}>
+                          {description}
+                        </RadioInput>
+                      </>
+                    );
+                  })}
+                </fieldset>
+              );
             })}
-          </fieldset>
         </form>
       </div>
     </div>
