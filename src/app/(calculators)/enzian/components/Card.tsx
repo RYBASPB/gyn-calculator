@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ComponentProps, FormEvent, PropsWithChildren } from "react";
+import React, { ComponentProps, FormEvent, Fragment, PropsWithChildren } from "react";
 import Image, { ImageProps } from "next/image";
 
 function RadioInput({
@@ -56,11 +56,11 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
                   {radioInputs.map(({ name, description }, index) => {
                     const key = name + index.toString();
                     return (
-                      <>
-                        <RadioInput name={name} value={key} key={key}>
+                      <Fragment key={key}>
+                        <RadioInput name={name} value={key}>
                           {description}
                         </RadioInput>
-                      </>
+                      </Fragment>
                     );
                   })}
                 </fieldset>
