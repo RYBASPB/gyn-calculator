@@ -2,6 +2,7 @@
 
 import React, { ComponentProps, FormEvent, Fragment, PropsWithChildren } from "react";
 import Image, { ImageProps } from "next/image";
+import { EnzianScore } from "@/app/(calculators)/enzian/store/EnzianStore";
 
 function RadioInput({
   children,
@@ -20,7 +21,8 @@ function RadioInput({
 export type RadioInput = {
   [legend: string]:
     {
-      name: string;
+      name: keyof EnzianScore;
+      value: EnzianScore[keyof EnzianScore];
       description: string;
     }[]
 };
@@ -47,17 +49,16 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
       </div>
 
       <div>
-        <form>
             {Object.entries(inputs).map(([legend, radioInputs], index) => {
               const legendKey = legend.replaceAll(" ", "") + index.toString();
               return (
                 <fieldset key={legendKey}>
                   <legend>{legend}</legend>
-                  {radioInputs.map(({ name, description }, index) => {
-                    const key = name + index.toString();
+                  {radioInputs.map(({ name, description, value }) => {
+                    const key = name + value.toString();
                     return (
                       <Fragment key={key}>
-                        <RadioInput name={name} value={key}>
+                        <RadioInput name={name} value={value}>
                           {description}
                         </RadioInput>
                       </Fragment>
@@ -66,7 +67,6 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
                 </fieldset>
               );
             })}
-        </form>
       </div>
     </div>
   );
