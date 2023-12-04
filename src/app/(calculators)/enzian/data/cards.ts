@@ -1,4 +1,20 @@
-import { ENZIANCard } from "@/app/(calculators)/enzian/components/Card";
+import { ImageProps } from "next/image";
+
+export type RadioInput = {
+  [legend: string]:
+    {
+      name: string;
+      description: string;
+      value: number;
+    }[]
+};
+
+export type ENZIANCard = {
+  letter: string;
+  description: string;
+  image: ImageProps["src"];
+  inputs: RadioInput;
+};
 
 const peritoneumCard: ENZIANCard = {
   description: "Брюшина - Peritoneum",
@@ -85,9 +101,9 @@ const cCard: ENZIANCard = {
   image: "",
   inputs: {
     "Диаметр": [
-      { description: "меньше 1 см", name: "cl", value: 1 },
-      { description: "1-3 см", name: "cl", value: 2 },
-      { description: "больше 3 см", name: "cl", value: 3 },
+      { description: "меньше 1 см", name: "c", value: 1 },
+      { description: "1-3 см", name: "c", value: 2 },
+      { description: "больше 3 см", name: "c", value: 3 },
     ]
   },
   letter: "C"

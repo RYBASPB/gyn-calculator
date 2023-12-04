@@ -1,7 +1,8 @@
 "use client";
 
 import React, { ComponentProps, FormEvent, Fragment, PropsWithChildren } from "react";
-import Image, { ImageProps } from "next/image";
+import Image from "next/image";
+import { ENZIANCard } from "@/app/(calculators)/enzian/data/cards";
 
 function RadioInput({
   children,
@@ -16,22 +17,6 @@ function RadioInput({
     </label>
   );
 }
-
-export type RadioInput = {
-  [legend: string]:
-    {
-      name: string;
-      description: string;
-      value: number;
-    }[]
-};
-
-export type ENZIANCard = {
-  letter: string;
-  description: string;
-  image: ImageProps["src"];
-  inputs: RadioInput;
-};
 
 function Card({ description, image, inputs, letter }: ENZIANCard) {
   return (
@@ -48,7 +33,6 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
       </div>
 
       <div>
-        <form>
             {Object.entries(inputs).map(([legend, radioInputs], index) => {
               const legendKey = legend.replaceAll(" ", "") + index.toString();
               return (
@@ -67,7 +51,6 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
                 </fieldset>
               );
             })}
-        </form>
       </div>
     </div>
   );
