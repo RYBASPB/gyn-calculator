@@ -22,6 +22,7 @@ export type RadioInput = {
     {
       name: string;
       description: string;
+      value: number;
     }[]
 };
 
@@ -53,11 +54,11 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
               return (
                 <fieldset key={legendKey}>
                   <legend>{legend}</legend>
-                  {radioInputs.map(({ name, description }, index) => {
-                    const key = name + index.toString();
+                  {radioInputs.map(({ name, description, value }) => {
+                    const key = name + value.toString();
                     return (
                       <Fragment key={key}>
-                        <RadioInput name={name} value={key}>
+                        <RadioInput name={name} value={value}>
                           {description}
                         </RadioInput>
                       </Fragment>
