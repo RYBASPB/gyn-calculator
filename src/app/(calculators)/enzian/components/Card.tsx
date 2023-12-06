@@ -20,7 +20,7 @@ function RadioInput({
 
 function Card({ description, image, inputs, letter }: ENZIANCard) {
   return (
-    <div>
+    <div className="w-full border-4 border-white rounded-2xl p-2 flex flex-col items-center">
       <div>
         <div>{letter}</div>
         <div>{description}</div>
@@ -36,8 +36,8 @@ function Card({ description, image, inputs, letter }: ENZIANCard) {
             {Object.entries(inputs).map(([legend, radioInputs], index) => {
               const legendKey = legend.replaceAll(" ", "") + index.toString();
               return (
-                <fieldset key={legendKey}>
-                  <legend>{legend}</legend>
+                <fieldset key={legendKey} className="flex flex-col w-full items-start gap-2">
+                  <legend className="font-bold mt-2">{legend}</legend>
                   {radioInputs.map(({ name, description, value }) => {
                     const key = name + value.toString();
                     return (
